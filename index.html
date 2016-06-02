@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>AngularJS Tags</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="./ng-tags-input.min.css"/>
+    <script src="./angular.min.js"></script>
+    <script src="./ng-tags-input.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+<h1>Country Tags</h1>
+<hr/>
+<tags-input ng-model="tags"
+            display-property="name"
+            placeholder="Add a country"
+            replace-spaces-with-dashes="false"
+            template="tag-template">
+    <auto-complete source="loadCountries($query)"
+                   min-length="0"
+                   load-on-focus="true"
+                   load-on-empty="true"
+                   max-results-to-show="32"
+                   template="autocomplete-template"></auto-complete>
+</tags-input>
+<hr/>
+<script type="text/ng-template" id="tag-template">
+    <div class="tag-template">
+        <div class="left-panel">
+            <img ng-src="./images/{{data.flag}}" ng-if="data.flag"/>
+        </div>
+        <div class="right-panel">
+            <span>{{$getDisplayText()}}</span>
+            <a class="remove-button" ng-click="$removeTag()">&#10006;</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="autocomplete-template">
+    <div class="autocomplete-template">
+        <div class="left-panel">
+            <img ng-src="./images/{{data.flag}}"/>
+        </div>
+        <div class="right-panel">
+            <span ng-bind-html="$highlight($getDisplayText())"></span>
+            <span>({{data.rank}})</span>
+            <span>{{data.confederation}}</span>
+        </div>
+    </div>
+</script>
+
+</body>
+
+</html>
